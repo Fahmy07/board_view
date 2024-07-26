@@ -22,13 +22,6 @@ class _PaginationScrollBoardState extends State<PaginationScrollBoard> {
     BoardItemModel.stub(),
     BoardItemModel.stub(),
     BoardItemModel.stub(),
-    BoardItemModel.stub(),
-    BoardItemModel.stub(),
-    BoardItemModel.stub(),
-    BoardItemModel.stub(),
-    BoardItemModel.stub(),
-    BoardItemModel.stub(),
-    BoardItemModel.stub(),
   ];
 
   final List<BoardListModel> _listData = [
@@ -72,7 +65,8 @@ class _PaginationScrollBoardState extends State<PaginationScrollBoard> {
           items.insert(i, buildBoardItem(_newPage[i]));
         });
       }
-      _listData[listIndex].pagingController!.appendPage(items, pageNumber);
+      _listData[listIndex].pagingController!.appendLastPage(items);
+      // _listData[listIndex].pagingController!.appendPage(items, pageNumber);
     });
   }
 

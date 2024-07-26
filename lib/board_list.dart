@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_boardview/board_item.dart';
 import 'package:flutter_boardview/boardview.dart';
-import 'package:flutter/material.dart';
 
 typedef OnDropList = void Function(int? listIndex, int? oldListIndex);
 typedef OnTapList = void Function(int? listIndex);
@@ -91,29 +91,34 @@ class BoardListState extends State<BoardList> with AutomaticKeepAliveClientMixin
   @override
   bool get wantKeepAlive => true;
 
-  Widget _itemBuilder(ctx, index) {
-    if (widget.items![index].boardList == null ||
-        widget.items![index].index != index ||
-        widget.items![index].boardList!.widget.index != widget.index ||
-        widget.items![index].boardList != this) {
-      widget.items![index] = BoardItem(
+  Widget? _itemBuilder(ctx, index) {
+    if (index >= widget.items?.length) {
+      return widget.items?[index - 1];
+    }
+
+    if (widget.items?[index].boardList == null ||
+        widget.items?[index].index != index ||
+        widget.items?[index].boardList!.widget.index != widget.index ||
+        widget.items?[index].boardList != this) {
+      widget.items?[index] = BoardItem(
         boardList: this,
-        item: widget.items![index].item,
+        item: widget.items?[index].item,
         draggable: widget.items![index].draggable,
         index: index,
-        onDropItem: widget.items![index].onDropItem,
-        onTapItem: widget.items![index].onTapItem,
-        onDragItem: widget.items![index].onDragItem,
-        onStartDragItem: widget.items![index].onStartDragItem,
+        onDropItem: widget.items?[index].onDropItem,
+        onTapItem: widget.items?[index].onTapItem,
+        onDragItem: widget.items?[index].onDragItem,
+        onStartDragItem: widget.items?[index].onStartDragItem,
       );
     }
+
     if (widget.boardView!.draggedItemIndex == index && widget.boardView!.draggedListIndex == widget.index) {
       return Opacity(
         opacity: 0.0,
-        child: widget.items![index],
+        child: widget.items?[index],
       );
     } else {
-      return widget.items![index];
+      return widget.items?[index];
     }
   }
 
